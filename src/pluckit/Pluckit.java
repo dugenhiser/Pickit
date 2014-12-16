@@ -144,6 +144,73 @@ public class Pluckit extends Application {
         MenuItem exit = new MenuItem("Exit");
 
         MenuItem loadChord = new MenuItem("Load Chord");
+        MenuItem newChord = new MenuItem("New Chord");
+        
+        newChord.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                VBox vbox1 = new VBox();
+                Stage chordMaker = new Stage();
+                chordMaker.setTitle("New Chord");
+               HBox chordfinger = new HBox();
+               HBox chordname = new HBox();
+               Label chordName = new Label("Chord Name");
+               Label finger1 = new Label("Finger Position");
+                TextField fingers = new TextField ();
+                TextField name = new TextField ();
+                Button getFingers = new Button("Get Chord");
+                chordfinger.getChildren().addAll(finger1,fingers);
+                chordname.getChildren().addAll(chordName,name);
+                vbox1.getChildren().addAll(chordname,chordfinger,getFingers);
+                Scene chordScene = new Scene(vbox1,600,300);
+                chordMaker.setScene(chordScene);
+                chordMaker.show();
+               
+                getFingers.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent t) {
+                       
+                        Chord chord = new Chord();
+                chord.setFingers( fingers.getText());
+                chord.setName(name.getText());
+                   Button button = new Button(name.getText());
+                button.setMinSize(70, 70);
+                leftSideButtons.getChildren().add(button);
+                int[] chords = new int[6];
+                Character number = chord.getFingers().charAt(0);
+                String num = number.toString();
+                chords[0] = Integer.parseInt(num);
+                number = chord.getFingers().charAt(1);
+                num = number.toString();
+                chords[1] = Integer.parseInt(num);
+                number = chord.getFingers().charAt(2);
+                num = number.toString();
+                chords[2] = Integer.parseInt(num);
+                number = chord.getFingers().charAt(3);
+                num = number.toString();
+                chords[3] = Integer.parseInt(num);
+                number = chord.getFingers().charAt(4);
+                num = number.toString();
+                chords[4] = Integer.parseInt(num);
+                number = chord.getFingers().charAt(5);
+                num = number.toString();
+                chords[5] = Integer.parseInt(num);
+                savedChords.add(chord);
+                button.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent t) {
+
+                        tab.getChild(chords);
+                        allChords.add(chord);
+                    }
+                });
+                        
+                    }
+                });
+                
+            }
+            
+        });
 
         load.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -344,7 +411,7 @@ public class Pluckit extends Application {
         
         
             file.getItems().addAll(save, load, export, exit);
-            tools.getItems().addAll(loadChord);
+            tools.getItems().addAll(loadChord,newChord);
         /**
          * *************************************************
          */
