@@ -72,6 +72,7 @@ public class Pluckit extends Application {
             System.out.println(sectionalList1.getName());
             for (Chord chord : sectionalList1.getChords()) {
                 Button button = new Button(chord.getName());
+                button.setMinSize(70, 70);
                 leftSideButtons.getChildren().add(button);
                 int[] chords = new int[6];
                 Character number = chord.getFingers().charAt(0);
